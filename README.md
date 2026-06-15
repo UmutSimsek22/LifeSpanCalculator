@@ -44,4 +44,4 @@ Projeyi çalıştırmak için herhangi bir derleyici veya yerel sunucu kurulumun
 
 ---
 
-*Zamanın kıymetini bilmek, onu nasıl harcadığımızı görmekten geçer. GitHub'da paylaşmak için keyifli bir projedir!*
+*Zamanın kıymetini bilmek, onu nasıl harcadığımızı görmekten geçer.
