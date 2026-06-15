@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ömür Sayacı & Yaşam İstatistikleri</title>
+    <meta name="description" content="Hayatta olduğunuz süreyi canlı olarak hesaplayın ve ilginç yaşam istatistiklerinizi öğrenin.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-decorations">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="app-container">
+        <!-- Giriş Kartı -->
+        <section class="card setup-card" id="setupCard">
+            <header class="app-header">
+                <div class="logo-area">
+                    <i data-lucide="hourglass" class="logo-icon"></i>
+                </div>
+                <h1>Zamanın İzinde</h1>
+                <p>Doğduğunuz andan bugüne geçen süreyi milisaniyesine kadar takip edin ve yaşam yolculuğunuzun istatistiklerini keşfedin.</p>
+            </header>
+
+            <form id="dateForm" class="date-form" onsubmit="event.preventDefault();">
+                <div class="dropdown-group">
+                    <div class="select-wrapper">
+                        <label for="birthDay">Gün</label>
+                        <select id="birthDay" required>
+                            <option value="" disabled selected>Seçiniz</option>
+                            <!-- JS ile doldurulacak -->
+                        </select>
+                    </div>
+
+                    <div class="select-wrapper">
+                        <label for="birthMonth">Ay</label>
+                        <select id="birthMonth" required>
+                            <option value="" disabled selected>Seçiniz</option>
+                            <option value="0">Ocak</option>
+                            <option value="1">Şubat</option>
+                            <option value="2">Mart</option>
+                            <option value="3">Nisan</option>
+                            <option value="4">Mayıs</option>
+                            <option value="5">Haziran</option>
+                            <option value="6">Temmuz</option>
+                            <option value="7">Ağustos</option>
+                            <option value="8">Eylül</option>
+                            <option value="9">Ekim</option>
+                            <option value="10">Kasım</option>
+                            <option value="11">Aralık</option>
+                        </select>
+                    </div>
+
+                    <div class="select-wrapper">
+                        <label for="birthYear">Yıl</label>
+                        <select id="birthYear" required>
+                            <option value="" disabled selected>Seçiniz</option>
+                            <!-- JS ile doldurulacak -->
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" id="calculateBtn" class="btn btn-primary">
+                    <span>Hesaplamayı Başlat</span>
+                    <i data-lucide="arrow-right"></i>
+                </button>
+            </form>
+        </section>
+
+        <!-- Sonuçlar Paneli (Başlangıçta Gizli) -->
+        <section class="results-container hidden" id="resultsContainer">
+            <!-- Canlı Sayaç Kartı -->
+            <div class="card live-counter-card">
+                <div class="card-header-accent">CANLI YAŞAM SÜRENİZ</div>
+                <div class="live-ticker" id="liveTicker">
+                    <div class="ticker-unit">
+                        <span id="valDays" class="ticker-num">0</span>
+                        <span class="ticker-label">Gün</span>
+                    </div>
+                    <div class="ticker-colon">:</div>
+                    <div class="ticker-unit">
+                        <span id="valHours" class="ticker-num">00</span>
+                        <span class="ticker-label">Saat</span>
+                    </div>
+                    <div class="ticker-colon">:</div>
+                    <div class="ticker-unit">
+                        <span id="valMinutes" class="ticker-num">00</span>
+                        <span class="ticker-label">Dakika</span>
+                    </div>
+                    <div class="ticker-colon">:</div>
+                    <div class="ticker-unit">
+                        <span id="valSeconds" class="ticker-num">00</span>
+                        <span class="ticker-label">Saniye</span>
+                    </div>
+                    <div class="ticker-colon">:</div>
+                    <div class="ticker-unit ms-unit">
+                        <span id="valMs" class="ticker-num">000</span>
+                        <span class="ticker-label">Milisaniye</span>
+                    </div>
+                </div>
+
+                <!-- Detaylı Takvim Kırılımı -->
+                <div class="calendar-breakdown">
+                    <p class="breakdown-title">Takvim Kırılımı (Gerçek Değerler)</p>
+                    <div class="breakdown-grid">
+                        <div class="breakdown-item">
+                            <span class="breakdown-num" id="breakYears">0</span>
+                            <span class="breakdown-label">Yıl</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-num" id="breakMonths">0</span>
+                            <span class="breakdown-label">Ay</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-num" id="breakWeeks">0</span>
+                            <span class="breakdown-label">Hafta</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-num" id="breakDays">0</span>
+                            <span class="breakdown-label">Gün</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İstatistik Kartları Grid Yapısı -->
+            <div class="stats-grid">
+                <!-- Kalp Atışı -->
+                <div class="card stat-card">
+                    <div class="stat-icon-wrapper heart-icon">
+                        <i data-lucide="heart"></i>
+                    </div>
+                    <h3>Kalp Atışınız</h3>
+                    <p class="stat-value" id="statHeartbeats">0</p>
+                    <p class="stat-desc">Ortalama 80 BPM ile kalbinizin tahmini toplam atış sayısı.</p>
+                </div>
+
+                <!-- Alınan Nefes -->
+                <div class="card stat-card">
+                    <div class="stat-icon-wrapper breath-icon">
+                        <i data-lucide="wind"></i>
+                    </div>
+                    <h3>Alınan Nefes</h3>
+                    <p class="stat-value" id="statBreaths">0</p>
+                    <p class="stat-desc">Dakikada 16 nefes ortalamasıyla ciğerlerinize çektiğiniz hava döngüsü.</p>
+                </div>
+
+                <!-- Uykuda Geçen Zaman -->
+                <div class="card stat-card">
+                    <div class="stat-icon-wrapper sleep-icon">
+                        <i data-lucide="moon"></i>
+                    </div>
+                    <h3>Uykuda Geçen Süre</h3>
+                    <p class="stat-value" id="statSleep">0</p>
+                    <p class="stat-desc">Günde 8 saatlik uyku ortalamasına göre rüyalar aleminde geçirdiğiniz süre.</p>
+                </div>
+
+                <!-- Sonraki Doğum Günü -->
+                <div class="card stat-card highlight-card">
+                    <div class="stat-icon-wrapper gift-icon">
+                        <i data-lucide="gift"></i>
+                    </div>
+                    <h3>Gelecek Doğum Günü</h3>
+                    <p class="stat-value countdown-value" id="statBirthdayCountdown">0 Gün kaldı</p>
+                    <p class="stat-desc">Yeni yaşınızı kutlamanıza ve mumları üflemenize kalan süre.</p>
+                </div>
+
+                <!-- Burç ve Element -->
+                <div class="card stat-card">
+                    <div class="stat-icon-wrapper zodiac-icon">
+                        <i data-lucide="sparkles"></i>
+                    </div>
+                    <h3>Burcunuz</h3>
+                    <p class="stat-value" id="statZodiac">Yükleniyor...</p>
+                    <p class="stat-desc" id="statZodiacDesc">Zodyak kuşağındaki yeriniz ve elementiniz.</p>
+                </div>
+
+                <!-- Tüketilen Öğün -->
+                <div class="card stat-card">
+                    <div class="stat-icon-wrapper food-icon">
+                        <i data-lucide="coffee"></i>
+                    </div>
+                    <h3>Tüketilen Öğün</h3>
+                    <p class="stat-value" id="statMeals">0</p>
+                    <p class="stat-desc">Günde ortalama 3 ana öğün ile hayatınız boyunca yediğiniz tahmini yemek sayısı.</p>
+                </div>
+            </div>
+
+            <div class="action-footer">
+                <button id="recalculateBtn" class="btn btn-secondary">
+                    <i data-lucide="rotate-ccw"></i>
+                    <span>Tarihi Değiştir</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer-text">
+        <p>&copy; 2026 Zamanın İzinde. Tüm hakları saklıdır. GitHub için sevgiyle geliştirildi.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Lucide ikonlarını başlat
+        lucide.createIcons();
+    </script>
+</body>
+</html>
