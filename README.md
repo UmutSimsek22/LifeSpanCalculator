@@ -2,7 +2,7 @@
 
 Bu web uygulaması, kullanıcının doğum tarihini açılır kutulardan (Dropdown) seçerek ne kadar süredir hayatta olduğunu milisaniyesine kadar canlı (ticking) olarak hesaplayan ve eğlenceli yaşam istatistikleri sunan modern, tek sayfalık (SPA) bir web arayüzüdür.
 
-![Ekran Görüntüsü Şablonu](https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/hourglass.svg)
+
 
 ## 🌟 Özellikler
 
@@ -43,5 +43,9 @@ Projeyi çalıştırmak için herhangi bir derleyici veya yerel sunucu kurulumun
 2. Proje klasörüne gidin ve `index.html` dosyasını çift tıklayarak tarayıcınızda açın.
 
 ---
+
+## 🤖 Geliştirme Süreci
+
+Bu proje AI destekli (AI-assisted) bir workflow ile geliştirilmiştir; mantık ve yapı tarafımdan tasarlanmış, kod yazımında AI araçlarından (Antigravity) yardım alınmıştır.
 
 *Zamanın kıymetini bilmek, onu nasıl harcadığımızı görmekten geçer.
